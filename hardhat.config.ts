@@ -10,10 +10,13 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   networks: {
+    
     local: {
-      url: "http://localhost:8545"
+      url: "http://localhost:8545",
+      chainId: 31337,
     },
     hardhat: {
+      chainId: 31337,
       forking: {
         url: "https://eth-kovan.alchemyapi.io/v2/62xpk7ctulRN4tFUvrHu-yF7thYJXXP5",
       }
