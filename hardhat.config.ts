@@ -18,7 +18,7 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 31337,
       forking: {
-        url: "https://eth-kovan.alchemyapi.io/v2/62xpk7ctulRN4tFUvrHu-yF7thYJXXP5",
+        url: "https://eth-goerli.alchemyapi.io/v2/-ArWHOOYvAQ-o_Tlr08aE2GQX5hmBuvf",
       }
     }
   },

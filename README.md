@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a hardhat project that forked kovan to make frontend testing easier.
+This is a hardhat project that forked goerli to make frontend testing easier.
 
 ## Requirements
 
@@ -25,7 +25,7 @@ yarn
 ```
 yarn fork
 ```
-After running this command, a fork of the kovan network will be created, and the RPC server on htpp://localhost:8545 will start
+After running this command, a fork of the goerli network will be created, and the RPC server on htpp://localhost:8545 will start
 
 ### To increase the time
 ```
