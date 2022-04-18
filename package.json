@@ -4,6 +4,9 @@
   "scripts": {
     "fork": "hardhat node",
     "addtime": "hardhat addtime --network local",
+    "newprice": "hardhat newprice --network local",
+    "rebalance": "hardhat rebalance --network local",
+    "state": "hardhat state --network local",
     "now": "hardhat now --network local"
   },
   "devDependencies": {
