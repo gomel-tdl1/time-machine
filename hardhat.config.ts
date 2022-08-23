@@ -22,6 +22,10 @@ const configs: NetworksUserConfig = {
     url: "https://eth-mainnet.g.alchemy.com/v2/xD6ljTKosJH4LJ0QJedVyf1uxMNYh8PE",
     chainId: 1,
   },
+  goerli: {
+    url: "https://eth-goerli.alchemyapi.io/v2/-ArWHOOYvAQ-o_Tlr08aE2GQX5hmBuvf",
+    chainId: 5,
+  },
   bumperChainAlpha: {
     url: "https://alpha.rpc.bumper-dao.com/rpc",
     chainId: 12345,
