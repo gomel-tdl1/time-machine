@@ -14,8 +14,8 @@ const forkNetwork = process.env.FORK_NETWORK ?? 'bumperChainAlpha';
 console.log('Forking network is: ', forkNetwork);
 
 const configs: NetworksUserConfig = {
-  local: {
-    url: "http://localhost:8545",
+  localhost: {
+    url: "http://127.0.0.1:8545",
     chainId: 31337,
   },
   main: {
@@ -23,7 +23,7 @@ const configs: NetworksUserConfig = {
     chainId: 1,
   },
   goerli: {
-    url: "https://eth-goerli.alchemyapi.io/v2/-ArWHOOYvAQ-o_Tlr08aE2GQX5hmBuvf",
+    url: "https://eth-goerli.g.alchemy.com/v2/47JBE-y187Y_InTRDytGBQm1Sz-Dv6wM",
     chainId: 5,
   },
   bumperChainAlpha: {
@@ -40,7 +40,10 @@ const config: HardhatUserConfig = {
       forking: {
         url: (configs[forkNetwork] as HttpNetworkUserConfig)?.url ?? '',
       }
-    }
+    },
+  },
+  mocha: {
+    timeout: 100000000
   },
 };
 

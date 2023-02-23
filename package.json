@@ -3,16 +3,17 @@
   "version": "0.0.1",
   "scripts": {
     "fork": "hardhat node",
-    "addtime": "hardhat addtime --network local",
-    "newprice": "hardhat newprice --network local",
-    "rebalance": "hardhat rebalance --network local",
-    "state": "hardhat state --network local",
-    "now": "hardhat now --network local"
+    "addtime": "hardhat addtime --network localhost",
+    "newprice": "hardhat newprice --network localhost",
+    "rebalance": "hardhat rebalance --network localhost",
+    "state": "hardhat state --network localhost",
+    "now": "hardhat now --network localhost",
+    "addBalance": "hardhat addBalance --network localhost"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "dotenv": "^10.0.0",
-    "ethers": "^5.5.1",
+    "ethers": "^5.7.2",
     "hardhat": "^2.7.0",
     "parse-duration": "^1.0.2",
     "ts-node": "^10.4.0",

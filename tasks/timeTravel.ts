@@ -18,9 +18,25 @@ task("addtime", "Increase the timestamp of the last block by the time interval."
     await printLastBlockTime(hre);
   });
 
-task("now", "Show current time in blockchain").setAction(async ({}, hre) => {
-  await printLastBlockTime(hre);
-});
+  task("now", "Show current time in blockchain").setAction(async ({}, hre) => {
+    await printLastBlockTime(hre);
+  });
+
+  task("addBalance", "add balance to user").setAction(async ({}, hre) => {
+    const holder = await hre.ethers.getSigner(
+      '0xc48e23c5f6e1ea0baef6530734edc3968f79af2e',
+    );
+    const provider = hre.network.provider;
+
+    await provider.request({
+      method: "hardhat_impersonateAccount",
+      params: ['0xc48e23c5f6e1ea0baef6530734edc3968f79af2e'],
+    });
+    await(await holder.sendTransaction({
+      to: '0x0b67d4f49243dD850ec0F9A055A94aE644bfBc9e',
+      value: hre.ethers.utils.parseEther('10')
+    })).wait()
+  });
 
 task("newprice", "Set new price")
   .addVariadicPositionalParam("price", "You can specify 1000", undefined, types.int)
