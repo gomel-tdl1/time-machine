@@ -2,6 +2,9 @@ import { task, types } from "hardhat/config";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import parse from "parse-duration";
+import {Signer} from "@ethersproject/abstract-signer";
+import {Provider} from "@ethersproject/abstract-provider";
+import {ContractInterface} from "@ethersproject/contracts/src.ts";
 
 export const printLastBlockTime = async (hre: HardhatRuntimeEnvironment) => {
   const latestBlock = await hre.ethers.provider.getBlock("latest");
@@ -22,20 +25,28 @@ task("addtime", "Increase the timestamp of the last block by the time interval."
     await printLastBlockTime(hre);
   });
 
-  task("addBalance", "add balance to user").setAction(async ({}, hre) => {
-    const holder = await hre.ethers.getSigner(
-      '0xc48e23c5f6e1ea0baef6530734edc3968f79af2e',
+  task("addBalance", "add balance to user")
+      .addParam("token", "ox......", undefined, types.string)
+      .addParam("holder", "ox......", undefined, types.string)
+      .addParam("recipient", "ox......", undefined, types.string)
+      .addParam("amount", "You can specify 1000", undefined, types.string)
+      .setAction(async ({token, holder, recipient, amount}, hre) => {
+    const holderAcc = await hre.ethers.getSigner(
+        holder,
     );
     const provider = hre.network.provider;
 
     await provider.request({
       method: "hardhat_impersonateAccount",
-      params: ['0xc48e23c5f6e1ea0baef6530734edc3968f79af2e'],
+      params: [holder],
     });
-    await(await holder.sendTransaction({
-      to: '0x0b67d4f49243dD850ec0F9A055A94aE644bfBc9e',
-      value: hre.ethers.utils.parseEther('10')
-    })).wait()
+
+    const abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"guy","type":"address"},{"name":"wad","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"src","type":"address"},{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"guy","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Withdrawal","type":"event"}]
+    const tokenInstance = new hre.ethers.Contract(token, abi, holderAcc)
+
+    await (
+        await tokenInstance.transfer(recipient, hre.ethers.utils.parseEther(amount))
+    ).wait()
   });
 
 task("newprice", "Set new price")

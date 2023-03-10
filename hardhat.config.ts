@@ -16,7 +16,7 @@ console.log('Forking network is: ', forkNetwork);
 const configs: NetworksUserConfig = {
   localhost: {
     url: "http://127.0.0.1:8545",
-    chainId: 31337,
+    chainId: 11155111,
   },
   main: {
     url: "https://eth-mainnet.g.alchemy.com/v2/xD6ljTKosJH4LJ0QJedVyf1uxMNYh8PE",
@@ -25,6 +25,10 @@ const configs: NetworksUserConfig = {
   goerli: {
     url: "https://eth-goerli.g.alchemy.com/v2/47JBE-y187Y_InTRDytGBQm1Sz-Dv6wM",
     chainId: 5,
+  },
+  sepolia: {
+    url: "https://sepolia.infura.io/v3/2f117a4bbe7b4934bc54350a26ead00e",
+    chainId: 11155111,
   },
   bumperChainAlpha: {
     url: "https://alpha.rpc.bumper-dao.com/rpc",
@@ -36,7 +40,7 @@ const config: HardhatUserConfig = {
   networks: {
     ...configs,
     hardhat: {
-      chainId: 31337,
+      chainId: 11155111,
       forking: {
         url: (configs[forkNetwork] as HttpNetworkUserConfig)?.url ?? '',
       }
