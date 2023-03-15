@@ -8,9 +8,12 @@
     "rebalance": "hardhat rebalance --network localhost",
     "state": "hardhat state --network localhost",
     "now": "hardhat now --network localhost",
-    "addBalance": "hardhat addBalance --network localhost"
+    "addBalance": "hardhat addBalance --network localhost",
+    "addBalanceETH": "hardhat addBalanceETH --network localhost",
+    "mine": "hardhat mine --network localhost"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "dotenv": "^10.0.0",
     "ethers": "^5.7.2",
