@@ -16,7 +16,7 @@ console.log('Forking network is: ', forkNetwork);
 const configs: NetworksUserConfig = {
   localhost: {
     url: "http://127.0.0.1:8545",
-    chainId: 11155111,
+    chainId: 1337,
   },
   main: {
     url: "https://eth-mainnet.g.alchemy.com/v2/xD6ljTKosJH4LJ0QJedVyf1uxMNYh8PE",
@@ -40,10 +40,10 @@ const config: HardhatUserConfig = {
   networks: {
     ...configs,
     hardhat: {
-      chainId: 11155111,
+      chainId: 1337,
+      initialBaseFeePerGas: 100000000,
       forking: {
         url: (configs[forkNetwork] as HttpNetworkUserConfig)?.url ?? '',
-        blockNumber: 3087639
       }
     },
   },
