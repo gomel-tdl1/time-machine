@@ -172,8 +172,10 @@ task("addBalance", "add balance to user")
         }]
         const tokenInstance = new hre.ethers.Contract(token, abi, holderAcc)
 
+        const decimals = await tokenInstance.decimals()
+
         await (
-            await tokenInstance.transfer(recipient, hre.ethers.utils.parseEther(amount))
+            await tokenInstance.transfer(recipient, hre.ethers.utils.parseUnits(amount, +decimals))
         ).wait()
     });
 
