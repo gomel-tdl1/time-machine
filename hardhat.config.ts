@@ -30,6 +30,10 @@ const configs: NetworksUserConfig = {
     url: "https://sepolia.infura.io/v3/2f117a4bbe7b4934bc54350a26ead00e",
     chainId: 11155111,
   },
+  bsc: {
+    url: "https://bsc-dataseed2.binance.org/",
+    chainId: 56,
+  },
   bumperChainAlpha: {
     url: "https://alpha.rpc.bumper-dao.com/rpc",
     chainId: 12345,
@@ -40,6 +44,10 @@ const config: HardhatUserConfig = {
   networks: {
     ...configs,
     hardhat: {
+      mining: {
+        auto: true,
+        interval: 3000,
+      },
       chainId: 1337,
       initialBaseFeePerGas: 100000000,
       forking: {
