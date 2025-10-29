@@ -10,12 +10,6 @@ You must have modern nodejs installed
 
 ## Prepare
 
-Clone repository to local machine
-
-```
-git clone https://gitlab.com/bumper-fi/fork-ethereum-time-machine.git
-```
-
 Install the required packages
 
 ```
