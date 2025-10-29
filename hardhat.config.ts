@@ -1,17 +1,18 @@
+import "@nomiclabs/hardhat-ethers";
 import * as dotenv from "dotenv";
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomiclabs/hardhat-ethers";
+import { HttpNetworkUserConfig, NetworksUserConfig } from "hardhat/types";
 import "./tasks/timeTravel";
-import { HttpNetworkUserConfig, NetworksUserConfig, NetworkUserConfig } from "hardhat/types";
 
 dotenv.config();
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-const forkNetwork = process.env.FORK_NETWORK ?? 'bumperChainAlpha';
+const forkNetwork = process.env.FORK_NETWORK ?? "main";
+const alchemyKey = process.env.ALCHEMY_KEY ?? "";
 
-console.log('Forking network is: ', forkNetwork);
+console.log("Forking network is: ", forkNetwork);
 
 const configs: NetworksUserConfig = {
   localhost: {
@@ -19,26 +20,26 @@ const configs: NetworksUserConfig = {
     chainId: 1337,
   },
   main: {
-    url: "https://eth-mainnet.g.alchemy.com/v2/xD6ljTKosJH4LJ0QJedVyf1uxMNYh8PE",
+    url: `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`,
     chainId: 1,
   },
-  goerli: {
-    url: "https://eth-goerli.g.alchemy.com/v2/47JBE-y187Y_InTRDytGBQm1Sz-Dv6wM",
-    chainId: 5,
+  base: {
+    url: `https://base-mainnet.g.alchemy.com/v2/${alchemyKey}`,
+    chainId: 8453,
   },
-  sepolia: {
-    url: "https://sepolia.infura.io/v3/2f117a4bbe7b4934bc54350a26ead00e",
-    chainId: 11155111,
+  arbitrum: {
+    url: `https://arb-mainnet.g.alchemy.com/v2/${alchemyKey}`,
+    chainId: 42161,
   },
-  bsc: {
-    url: "https://bsc-dataseed2.binance.org/",
-    chainId: 56,
+  optimism: {
+    url: `https://opt-mainnet.g.alchemy.com/v2/${alchemyKey}`,
+    chainId: 10,
   },
-  bumperChainAlpha: {
-    url: "https://alpha.rpc.bumper-dao.com/rpc",
-    chainId: 12345,
+  avalanche: {
+    url: `https://avax-mainnet.g.alchemy.com/v2/${alchemyKey}`,
+    chainId: 43114,
   },
-}
+};
 
 const config: HardhatUserConfig = {
   networks: {
@@ -51,12 +52,15 @@ const config: HardhatUserConfig = {
       chainId: 1337,
       initialBaseFeePerGas: 100000000,
       forking: {
-        url: (configs[forkNetwork] as HttpNetworkUserConfig)?.url ?? '',
-      }
+        url: (configs[forkNetwork] as HttpNetworkUserConfig)?.url ?? "",
+        blockNumber: process.env.FORK_BLOCK_NUMBER
+          ? parseInt(process.env.FORK_BLOCK_NUMBER)
+          : undefined,
+      },
     },
   },
   mocha: {
-    timeout: 100000000
+    timeout: 100000000,
   },
 };
 
