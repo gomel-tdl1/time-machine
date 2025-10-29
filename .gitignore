@@ -3,9 +3,23 @@ node_modules
 coverage
 coverage.json
 typechain
+typechain-types
 
 #Hardhat files
 cache
 artifacts
 
-.env
+# IDE files
+.idea
+
+# Error logs
+yarn-error.log
+
+# Docgen
+# docgen
+
+deployments/localhost
+deployments/hardhat
+
+scripts-data
+.qodo
