@@ -4,7 +4,7 @@ import { GWEI } from '../constants';
 import { ENV } from '../env';
 import { ConfigPerNetwork, Network, RpcUrl } from '../types';
 
-const { ALCHEMY_KEY, INFURA_KEY, FORKING_BLOCK_NUMBER } = ENV;
+const { ALCHEMY_KEY, INFURA_KEY, FORKING_BLOCK_NUMBER, FORKING_CHAIN_ID } = ENV;
 
 export const rpcUrls: ConfigPerNetwork<RpcUrl> = {
   base: ALCHEMY_KEY
@@ -24,11 +24,13 @@ export const gasPrices: ConfigPerNetwork<number | 'auto' | undefined> = {
   localhost: 70 * GWEI,
 };
 
+const forkingChainId = FORKING_CHAIN_ID ?? 31337;
+
 export const chainIds: ConfigPerNetwork<number> = {
   base: 8453,
   mainnet: 1,
-  hardhat: 31337,
-  localhost: 31337,
+  hardhat: forkingChainId,
+  localhost: forkingChainId,
 };
 
 export const gases: ConfigPerNetwork<number | undefined> = {

@@ -10,4 +10,7 @@ export const ENV: Environment = {
   FORKING_BLOCK_NUMBER: process.env.FORKING_BLOCK_NUMBER
     ? parseInt(process.env.FORKING_BLOCK_NUMBER)
     : undefined,
+  FORKING_CHAIN_ID: process.env.FORKING_CHAIN_ID
+    ? parseInt(process.env.FORKING_CHAIN_ID)
+    : undefined,
 };

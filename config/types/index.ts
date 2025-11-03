@@ -14,4 +14,5 @@ export interface Environment {
   readonly INFURA_KEY?: string;
   readonly FORKING_NETWORK?: Network;
   readonly FORKING_BLOCK_NUMBER?: number;
+  readonly FORKING_CHAIN_ID?: number;
 }
